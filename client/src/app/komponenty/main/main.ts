@@ -66,7 +66,7 @@ export class Main implements OnInit{
 
 
 pressedKeys: Set<string> = new Set();
-step: number = 10;
+step: number = 2.5;
 animationFrameId: any;
 
 @HostListener('window:keydown', ['$event'])
@@ -99,8 +99,7 @@ animate() {
   if (this.pressedKeys.has('d')) {
     this.px += this.step;
   }
-
-  // aktualizacja widoku jeśli potrzebna
+  
 
   this.animationFrameId = requestAnimationFrame(() => this.animate());
 }
