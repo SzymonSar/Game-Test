@@ -42,7 +42,7 @@ export class Main implements OnInit{
       this.px = response.data[0].px
       this.py = response.data[0].py
       this.color = response.data[0].color
-      console.log(response.data)
+      console.log("moje informacje "+response.data)
     } catch (error) {
       console.log("error", error);
     }
