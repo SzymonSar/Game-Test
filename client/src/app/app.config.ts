@@ -10,3 +10,5 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes)
   ]
 };
+
+export const bazaurl = 'https://game-test-mxod.onrender.com'

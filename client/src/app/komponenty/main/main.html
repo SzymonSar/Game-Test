@@ -1,12 +1,12 @@
-<p>BLOG</p>
-<form (ngSubmit)="Dodaj()" #form="ngForm">
-    <input type="text" name="user" id="user" [(ngModel)]="user">Uzytkownik
-    <input type="text" name="tytul" id="tytul" [(ngModel)]="tytul">Tytul
-    <input type="text" name="zawartosc" id="zawartosc" [(ngModel)]="zawartosc">Zawartosc
-    <button type="submit">Dodaj</button>
-</form>
 <div *ngFor="let item of danein">
     {{item.id}}. {{item.tytul}}<br>
     <p>{{item.zawartosc}}</p>
     {{item.owner}}<br>
 </div>
+<div
+  class="dot"
+  [style.left.px]="px"
+  [style.top.px]="py"
+  [style.background-color]="color">
+</div>
+

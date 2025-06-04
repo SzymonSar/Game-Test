@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
+import { bazaurl } from '../../app.config';
 @Component({
   selector: 'app-main',
   imports: [CommonModule, FormsModule],
@@ -12,11 +13,14 @@ export class Main implements OnInit{
   ngOnInit(): void {
     this.AxiosGet();
   }
-  bazaurl = "https://isi-paas-blog.onrender.com/"
+  bazaurl = bazaurl;
   danein: any[] = []
   user: string = "";
-  tytul: string = "";
-  zawartosc: string = "";
+  px: number = 0.0;
+  py: number = 0.0;
+  rot: number = 0.0;
+  color: string = "#000000"
+
   AxiosGet = async () => {
     let client = axios.create({
       baseURL: this.bazaurl
@@ -36,8 +40,9 @@ export class Main implements OnInit{
     });
     const dane = {
       owner: this.user,
-      tytul: this.tytul,
-      zawartosc: this.zawartosc
+      px: this.px,
+      py: this.py,
+      rot: this.rot
     }
     try {
       console.log(dane)
@@ -52,7 +57,7 @@ export class Main implements OnInit{
 
   async Dodaj(){
     console.log("dodaj dodaje")
-    if(this.user != "" && this.tytul != "" && this.zawartosc != "")
+    if(this.user != "" && this.px != 0.0 && this.py != 0.0)
       {
       await this.AxiosPost()
     }
