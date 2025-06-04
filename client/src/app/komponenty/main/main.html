@@ -1,7 +1,7 @@
-<form *ngIf="!user" #form="ngForm">
+<form *ngIf="!user" #form="ngForm" (ngSubmit)="goNext()">
   <label for="username">Username:</label>
   <input id="username" name="username" [(ngModel)]="username" required />
-  <button [disabled]="!username" (click)="goNext()">Dalej</button>
+  <button [disabled]="!username" type="submit">Dalej</button>
 </form>
 <div *ngIf="user">
     <div
