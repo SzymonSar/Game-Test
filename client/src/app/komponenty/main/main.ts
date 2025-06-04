@@ -69,22 +69,12 @@ export class Main implements OnInit{
     }
   }
 
-  async Dodaj(){
-    console.log("dodaj dodaje")
-    await this.AxiosGetUser()
-    if(this.user != "" && this.px != 0.0 && this.py != 0.0)
-      {
-      await this.AxiosPost()
-    }
-    this.AxiosGet()
-  }
 
-  
-
-  goNext() {
+  async goNext() {
     console.log('Przechodzę dalej z username:', this.username);
     this.user = this.username
-    this.AxiosPost()
+    await this.AxiosGetUser()
+    await this.AxiosPost()
     this.Loop()
   }
 
