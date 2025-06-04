@@ -41,9 +41,9 @@ app.get('/get-db', async (req, res) => {
     const { owner } = req.query; 
     let result;
     if(owner){
-      const result = await pool.query('SELECT * from game_all where owner != $1', [owner]);
+      result = await pool.query('SELECT * from game_all where owner != $1', [owner]);
     }else{
-      const result = await pool.query('SELECT * from game_all');
+      result = await pool.query('SELECT * from game_all');
   }
     res.send(result.rows);
   } catch (err) {
