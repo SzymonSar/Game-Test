@@ -116,7 +116,7 @@ animate() {
   if (this.pressedKeys.has('w') && this.py > 0) {
     this.py -= this.step;
   }
-  if (this.pressedKeys.has('s') && this.py < 1000) {
+  if (this.pressedKeys.has('s') && this.py < 500) {
     this.py += this.step;
   }
   if (this.pressedKeys.has('a') && this.py > 0) {
