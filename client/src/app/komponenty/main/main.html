@@ -1,7 +1,13 @@
-<div
-  class="dot"
-  [style.left.px]="px"
-  [style.top.px]="py"
-  [style.background-color]="color">
+<form #form="ngForm">
+  <label for="username">Username:</label>
+  <input id="username" name="username" [(ngModel)]="user" required />
+  <button [disabled]="!user" (click)="goNext()">Dalej</button>
+</form>
+<div *ngIf="user">
+    <div
+    class="dotp"
+    [style.left.px]="px"
+    [style.top.px]="py"
+    [style.background-color]="color">
+    </div>
 </div>
-

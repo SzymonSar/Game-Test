@@ -11,22 +11,21 @@ import { bazaurl } from '../../app.config';
 })
 export class Main implements OnInit{
   ngOnInit(): void {
-    this.AxiosGet();
+    
   }
   bazaurl = bazaurl;
   danein: any[] = []
   user: string = "";
   px: number = 0.0;
   py: number = 0.0;
-  rot: number = 0.0;
-  color: string = "#000000"
+  color: string = "#00ff00"
 
   AxiosGet = async () => {
     let client = axios.create({
       baseURL: this.bazaurl
     });
     try {
-      const response = await client.get(`/get-db/`);
+      const response = await client.get(`/get-db/?owner=${this.user}`);
       this.danein = response.data
       console.log(response.data)
     } catch (error) {
@@ -42,11 +41,11 @@ export class Main implements OnInit{
       owner: this.user,
       px: this.px,
       py: this.py,
-      rot: this.rot
+      color: this.color
     }
     try {
       console.log(dane)
-      const response = await client.post(`/add-db`, dane, {
+      const response = await client.post(`/add-db/`, dane, {
       headers: { 'Content-Type': 'application/json' }
     });
     console.log(response.status)
@@ -64,6 +63,22 @@ export class Main implements OnInit{
     this.AxiosGet()
   }
 
+  
+
+  goNext() {
+    console.log('Przechodzę dalej z username:', this.user);
+    this.AxiosPost()
+    this.Loop()
+  }
+
+  async Loop() {
+    while(true){
+      this.AxiosGet()
+      this.AxiosPost()
+
+    }
+  }
+
 
 pressedKeys: Set<string> = new Set();
 step: number = 2.5;
@@ -74,6 +89,7 @@ handleKeyDown(event: KeyboardEvent) {
   this.pressedKeys.add(event.key.toLowerCase());
   if (!this.animationFrameId) {
     this.animate();
+    this.AxiosPost()
   }
 }
 
