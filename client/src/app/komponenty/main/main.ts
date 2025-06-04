@@ -16,6 +16,7 @@ export class Main implements OnInit{
   bazaurl = bazaurl;
   danein: any[] = []
   user: string = "";
+  username: string = "";
   px: number = 0.0;
   py: number = 0.0;
   color: string = "#00ff00"
@@ -66,7 +67,8 @@ export class Main implements OnInit{
   
 
   goNext() {
-    console.log('Przechodzę dalej z username:', this.user);
+    console.log('Przechodzę dalej z username:', this.username);
+    this.user = this.username
     this.AxiosPost()
     this.Loop()
   }
