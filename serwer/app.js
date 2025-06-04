@@ -66,7 +66,7 @@ app.get('/get-db', async (req, res) => {
 
 app.post('/add-db', async (req, res) => {
   const { owner, px, py, color }  = req.body;
-  if (!owner || !tytul || !zawartosc) {
+  if (!owner || !px || !py || !color) {
     return res.status(400).send('Brakuje danych: owner, px, py lub color');
   }
 
