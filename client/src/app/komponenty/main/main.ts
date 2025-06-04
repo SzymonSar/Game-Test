@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component,  HostListener, OnInit } from '@angular/core';
 import axios from 'axios';
 import { bazaurl } from '../../app.config';
 @Component({
@@ -64,5 +64,23 @@ export class Main implements OnInit{
     this.AxiosGet()
   }
 
+step: number = 10.0  
+@HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    switch (event.key.toLowerCase()) {
+      case 'w':
+        this.py -= this.step;
+        break;
+      case 's':
+        this.py += this.step;
+        break;
+      case 'a':
+        this.px -= this.step;
+        break;
+      case 'd':
+        this.px += this.step;
+        break;
+    }
+}
 
 }
