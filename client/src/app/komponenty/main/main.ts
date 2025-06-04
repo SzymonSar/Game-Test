@@ -33,6 +33,20 @@ export class Main implements OnInit{
       console.log("error", error);
     }
   }
+  AxiosGetUser = async () => {
+    let client = axios.create({
+      baseURL: this.bazaurl
+    });
+    try {
+      const response = await client.get(`/get-db/?owner=${this.user}`);
+      this.px = response.data.px
+      this.py = response.data.py
+      this.color = response.data.color
+      console.log(response.data)
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
 
   AxiosPost = async () => {
     let client = axios.create({
@@ -57,6 +71,7 @@ export class Main implements OnInit{
 
   async Dodaj(){
     console.log("dodaj dodaje")
+    await this.AxiosGetUser()
     if(this.user != "" && this.px != 0.0 && this.py != 0.0)
       {
       await this.AxiosPost()
