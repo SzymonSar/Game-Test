@@ -26,7 +26,7 @@ export class Main implements OnInit{
       baseURL: this.bazaurl
     });
     try {
-      const response = await client.get(`/get-db/?owner=${this.user}`);
+      const response = await client.get(`/get-db/?owner=${this.user}?anti=1`);
       this.danein = response.data
       console.log(response.data)
     } catch (error) {

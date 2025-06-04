@@ -47,10 +47,14 @@ app.get('/drop-db-3122', async (req, res) => {
 
 app.get('/get-db', async (req, res) => {
   try {
-    const { owner } = req.query; 
+    const { owner, anti } = req.query; 
     let result;
     if(owner){
-      result = await pool.query('SELECT * from game_all where owner != $1', [owner]);
+      if(anti){
+        result = await pool.query('SELECT * from game_all where owner != $1', [owner]);
+      }else{
+        result = await pool.query('SELECT * from game_all where owner = $1', [owner]);
+      }
     }else{
       result = await pool.query('SELECT * from game_all');
   }
