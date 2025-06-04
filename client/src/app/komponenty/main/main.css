@@ -3,5 +3,14 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  
 }
+
+.ramka {
+  position: absolute;
+  top: 10;
+  left: 10;
+  width: 1000px;
+  height: 1000px;
+  border: 5px solid black;
+  box-sizing: border-box;
+    }

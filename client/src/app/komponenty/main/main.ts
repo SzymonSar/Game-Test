@@ -14,7 +14,7 @@ export class Main implements OnInit{
     
   }
   bazaurl = bazaurl;
-  danein: any[] = []
+  users: any[] = []
   user: string = "";
   username: string = "";
   px: number = 10.0;
@@ -27,7 +27,7 @@ export class Main implements OnInit{
     });
     try {
       const response = await client.get(`/get-db/?owner=${this.user}&anti=1`);
-      this.danein = response.data
+      this.users = response.data
       console.log(response.data)
     } catch (error) {
       console.log("error", error);
@@ -116,13 +116,13 @@ animate() {
   if (this.pressedKeys.has('w') && this.py > 0) {
     this.py -= this.step;
   }
-  if (this.pressedKeys.has('s') && this.py < 500) {
+  if (this.pressedKeys.has('s') && this.py < 1000) {
     this.py += this.step;
   }
   if (this.pressedKeys.has('a') && this.py > 0) {
     this.px -= this.step;
   }
-  if (this.pressedKeys.has('d') && this.px < 500) {
+  if (this.pressedKeys.has('d') && this.px < 1000) {
     this.px += this.step;
   }
   
