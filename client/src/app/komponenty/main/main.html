@@ -1,5 +1,5 @@
 <form *ngIf="!user" #form="ngForm" (ngSubmit)="goNext()">
-  <label for="username">Username:</label>
+  <label for="username">Sterowanie: wasd i spacja. Podaj nazwe uzyt.:</label>
   <input id="username" name="username" [(ngModel)]="username" required />
   <button [disabled]="!username" type="submit">Dalej</button>
 </form>

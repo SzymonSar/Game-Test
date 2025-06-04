@@ -17,8 +17,8 @@ export class Main implements OnInit{
   danein: any[] = []
   user: string = "";
   username: string = "";
-  px: number = 0.0;
-  py: number = 0.0;
+  px: number = 10.0;
+  py: number = 10.0;
   color: string = "#00ff00"
 
   AxiosGet = async () => {
