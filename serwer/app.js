@@ -35,6 +35,15 @@ const pool = new Pool({
   }
 });
 
+app.delete('/drop-db', async (req, res) => {
+  try {
+    await pool.query('DROP TABLE IF EXISTS game_all');
+    res.status(200).send('Tabela game_all została usunięta');
+  } catch (err) {
+    console.error('Błąd podczas usuwania tabeli:', err.stack || err);
+    res.status(500).send('Błąd połączenia z bazą danych');
+  }
+});
 
 app.get('/get-db', async (req, res) => {
   try {
@@ -52,8 +61,8 @@ app.get('/get-db', async (req, res) => {
       const result = await pool.query(`CREATE TABLE game_all (
           id SERIAL PRIMARY KEY,
           owner TEXT NOT NULL,
-          px INTEGER NOT NULL,
-          py INTEGER NOT NULL,
+          px DOUBLE NOT NULL,
+          py DOUBLE NOT NULL,
           color TEXT NOT NULL
          );`)
       res.status(200).send("Tabela zostala stworzona");

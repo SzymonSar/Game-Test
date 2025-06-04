@@ -10,4 +10,11 @@
     [style.top.px]="py"
     [style.background-color]="color">
     </div>
+    <div *ngFor="let item of danein"
+    class="doto"
+    [style.left.px]="item.px"
+    [style.top.px]="item.py"
+    [style.background-color]="item.color">
+    {{ item.owner }} 
+    </div>
 </div>
