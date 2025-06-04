@@ -39,9 +39,9 @@ export class Main implements OnInit{
     });
     try {
       const response = await client.get(`/get-db/?owner=${this.user}`);
-      this.px = response.data.px
-      this.py = response.data.py
-      this.color = response.data.color
+      this.px = response.data[0].px
+      this.py = response.data[0].py
+      this.color = response.data[0].color
       console.log(response.data)
     } catch (error) {
       console.log("error", error);
