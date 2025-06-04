@@ -35,7 +35,7 @@ const pool = new Pool({
   }
 });
 
-app.delete('/drop-db', async (req, res) => {
+app.get('/drop-db-3122', async (req, res) => {
   try {
     await pool.query('DROP TABLE IF EXISTS game_all');
     res.status(200).send('Tabela game_all została usunięta');
