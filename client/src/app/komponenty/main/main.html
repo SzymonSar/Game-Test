@@ -10,13 +10,13 @@
     [style.left.px]="px"
     [style.top.px]="py"
     [style.background-color]="color">
-    {{user}}
+    >{{user}}(ty)
     </div>
     <div *ngFor="let item of users"
     class="doto"
     [style.left.px]="item.px"
     [style.top.px]="item.py"
     [style.background-color]="item.color">
-    {{ item.owner }} 
+    >{{ item.owner }} 
     </div>
 </div>
