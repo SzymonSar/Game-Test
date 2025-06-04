@@ -77,11 +77,13 @@ export class Main implements OnInit{
     while(true){
       this.AxiosGet()
       this.AxiosPost()
-
+      await this.delay(1000)
     }
   }
 
-
+delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 pressedKeys: Set<string> = new Set();
 step: number = 2.5;
 animationFrameId: any;

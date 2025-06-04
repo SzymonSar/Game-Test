@@ -38,7 +38,8 @@ const pool = new Pool({
 
 app.get('/get-db', async (req, res) => {
   try {
-    owner = req.query.owner
+    const { owner } = req.query; 
+    let result;
     if(owner){
       const result = await pool.query('SELECT * from game_all where owner != $1', [owner]);
     }else{
