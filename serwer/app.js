@@ -61,8 +61,8 @@ app.get('/get-db', async (req, res) => {
       const result = await pool.query(`CREATE TABLE game_all (
           id SERIAL PRIMARY KEY,
           owner TEXT NOT NULL,
-          px DOUBLE NOT NULL,
-          py DOUBLE NOT NULL,
+          px DOUBLE PRECISION NOT NULL,
+          py DOUBLE PRECISION NOT NULL,
           color TEXT NOT NULL
          );`)
       res.status(200).send("Tabela zostala stworzona");
