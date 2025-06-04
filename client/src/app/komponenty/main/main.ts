@@ -64,23 +64,47 @@ export class Main implements OnInit{
     this.AxiosGet()
   }
 
-step: number = 10.0  
+
+pressedKeys: Set<string> = new Set();
+step: number = 10;
+animationFrameId: any;
+
 @HostListener('window:keydown', ['$event'])
-  handleKeyDown(event: KeyboardEvent) {
-    switch (event.key.toLowerCase()) {
-      case 'w':
-        this.py -= this.step;
-        break;
-      case 's':
-        this.py += this.step;
-        break;
-      case 'a':
-        this.px -= this.step;
-        break;
-      case 'd':
-        this.px += this.step;
-        break;
-    }
+handleKeyDown(event: KeyboardEvent) {
+  this.pressedKeys.add(event.key.toLowerCase());
+  if (!this.animationFrameId) {
+    this.animate();
+  }
 }
+
+@HostListener('window:keyup', ['$event'])
+handleKeyUp(event: KeyboardEvent) {
+  this.pressedKeys.delete(event.key.toLowerCase());
+  if (this.pressedKeys.size === 0) {
+    cancelAnimationFrame(this.animationFrameId);
+    this.animationFrameId = null;
+  }
+}
+
+animate() {
+  if (this.pressedKeys.has('w')) {
+    this.py -= this.step;
+  }
+  if (this.pressedKeys.has('s')) {
+    this.py += this.step;
+  }
+  if (this.pressedKeys.has('a')) {
+    this.px -= this.step;
+  }
+  if (this.pressedKeys.has('d')) {
+    this.px += this.step;
+  }
+
+  // aktualizacja widoku jeśli potrzebna
+
+  this.animationFrameId = requestAnimationFrame(() => this.animate());
+}
+
+
 
 }
