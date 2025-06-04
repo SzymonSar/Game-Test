@@ -113,13 +113,13 @@ handleKeyUp(event: KeyboardEvent) {
 }
 
 animate() {
-  if (this.pressedKeys.has('w') && this.py > 0) {
+  if (this.pressedKeys.has('w') && this.py > 10) {
     this.py -= this.step;
   }
   if (this.pressedKeys.has('s') && this.py < 500) {
     this.py += this.step;
   }
-  if (this.pressedKeys.has('a') && this.py > 0) {
+  if (this.pressedKeys.has('a') && this.px > 10) {
     this.px -= this.step;
   }
   if (this.pressedKeys.has('d') && this.px < 1000) {
