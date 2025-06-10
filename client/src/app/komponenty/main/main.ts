@@ -81,9 +81,9 @@ export class Main implements OnInit{
 
   async Loop() {
     while(true){
-      this.AxiosGet()
-      this.AxiosPost()
-      await this.delay(50)
+      await this.AxiosGet()
+      await this.AxiosPost()
+      await this.delay(10)
     }
   }
 
