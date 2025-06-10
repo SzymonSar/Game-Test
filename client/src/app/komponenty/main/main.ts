@@ -83,7 +83,7 @@ export class Main implements OnInit{
     while(true){
       this.AxiosGet()
       this.AxiosPost()
-      await this.delay(100)
+      await this.delay(10)
     }
   }
 
