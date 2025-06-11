@@ -183,8 +183,8 @@ AxiosPostBlock = async () => {
 handleMouseClick(event: MouseEvent) {
   const x = event.clientX;
   const y = event.clientY;
-  this.blockpx = x
-  this.blockpy = y
+  this.blockpx = x - this.blockhalfsize
+  this.blockpy = y - this.blockhalfsize
   this.AxiosPostBlock();
 }
 

@@ -111,7 +111,7 @@ app.post('/add-users-db', async (req, res) => {
 app.get('/drop-blocks-db-3122', async (req, res) => {
   try {
     await pool.query('DROP TABLE IF EXISTS game_blocks');
-    res.status(200).send('Tabela game_all została usunięta');
+    res.status(200).send('Tabela game_blocks została usunięta');
   } catch (err) {
     console.error('Błąd podczas usuwania tabeli:', err.stack || err);
     res.status(500).send('Błąd połączenia z bazą danych');
