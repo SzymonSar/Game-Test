@@ -20,74 +20,74 @@ export class Main implements OnInit{
   px: number = 10.0;
   py: number = 10.0;
   color: string = "#00ff00"
-
-  AxiosGet = async () => {
-    let client = axios.create({
-      baseURL: this.bazaurl
-    });
-    try {
-      const response = await client.get(`/get-db/?owner=${this.user}&anti=1`);
-      this.users = response.data
-      console.log(response.data)
-    } catch (error) {
-      console.log("error", error);
-    }
+  blocks: any[] = []
+AxiosGetUsers = async () => {
+  let client = axios.create({
+    baseURL: this.bazaurl
+  });
+  try {
+    const response = await client.get(`/get-users-db/?owner=${this.user}&anti=1`);
+    this.users = response.data
+    console.log(response.data)
+  } catch (error) {
+    console.log("error", error);
   }
-  AxiosGetUser = async () => {
-    let client = axios.create({
-      baseURL: this.bazaurl
-    });
-    try {
-      const response = await client.get(`/get-db/?owner=${this.user}`);
-      this.px = response.data[0].px
-      this.py = response.data[0].py
-      this.color = response.data[0].color
-      console.log("moje informacje "+response.data[0])
-      console.log("zapisane "+this.px+this.py+this.color)
-    } catch (error) {
-      console.log("error", error);
-    }
+}
+
+AxiosGetUser = async () => {
+  let client = axios.create({
+    baseURL: this.bazaurl
+  });
+  try {
+    const response = await client.get(`/get-users-db/?owner=${this.user}`);
+    this.px = response.data[0].px
+    this.py = response.data[0].py
+    this.color = response.data[0].color
+    console.log("moje informacje "+response.data[0])
+    console.log("zapisane "+this.px+this.py+this.color)
+  } catch (error) {
+    console.log("error", error);
   }
+}
 
-  AxiosPost = async () => {
-    let client = axios.create({
-      baseURL: this.bazaurl
-    });
-    const dane = {
-      owner: this.user,
-      px: this.px,
-      py: this.py,
-      color: this.color
-    }
-    try {
-      console.log(dane)
-      const response = await client.post(`/add-db/`, dane, {
-      headers: { 'Content-Type': 'application/json' }
-    });
-    console.log(response.status)
-    } catch (error) {
-      console.log("error", error);
-    }
+AxiosPostUser = async () => {
+  let client = axios.create({
+    baseURL: this.bazaurl
+  });
+  const dane = {
+    owner: this.user,
+    px: this.px,
+    py: this.py,
+    color: this.color
   }
-
-
-  async goNext() {
-    console.log('Przechodzę dalej z username:', this.username);
-    this.user = this.username
-    await this.AxiosGetUser()
-    await this.AxiosPost()
-    this.Loop()
+  try {
+    console.log(dane)
+    const response = await client.post(`/add-users-db/`, dane, {
+    headers: { 'Content-Type': 'application/json' }
+  });
+  console.log(response.status)
+  } catch (error) {
+    console.log("error", error);
   }
+}
 
-  async Loop() {
-    while(true){
-      await this.AxiosGet()
-      await this.AxiosPost()
-      await this.delay(10)
-    }
+async goNext() {
+  console.log('Przechodzę dalej z username:', this.username);
+  this.user = this.username
+  await this.AxiosGetUser()
+  await this.AxiosPostUser()
+  this.Loop()
+}
+
+async Loop() {
+  while(true){
+    await this.AxiosGetUsers()
+    await this.AxiosPostUser()
+    await this.delay(10)
   }
+ }
 
-delay(ms: number) {
+  delay(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 pressedKeys: Set<string> = new Set();
@@ -99,7 +99,7 @@ handleKeyDown(event: KeyboardEvent) {
   this.pressedKeys.add(event.key.toLowerCase());
   if (!this.animationFrameId) {
     this.animate();
-    this.AxiosPost()
+    this.AxiosPostUser()
   }
 }
 
@@ -125,10 +125,56 @@ animate() {
   if (this.pressedKeys.has('d') && this.px < 1000) {
     this.px += this.step;
   }
-  
-
   this.animationFrameId = requestAnimationFrame(() => this.animate());
 }
+
+AxiosGetBlocks = async () => {
+  let client = axios.create({
+    baseURL: this.bazaurl
+  });
+  try {
+    const response = await client.get(`/get-blocks-db`);
+    this.blocks = response.data
+    console.log(response.data)
+  } catch (error) {
+    console.log("error", error);
+  }
+}
+
+  blockpx: number = 10.0;
+  blockpy: number = 10.0;
+  blockcolor: string = "#dd0000"
+
+AxiosPostBlock = async () => {
+  let client = axios.create({
+    baseURL: this.bazaurl
+  });
+  const dane = {
+    px: this.blockpx,
+    py: this.blockpy,
+    color: this.blockcolor
+  }
+  try {
+    console.log(dane)
+    const response = await client.post(`/add- blocks-db/`, dane, {
+    headers: { 'Content-Type': 'application/json' }
+  });
+  console.log(response.status)
+  } catch (error) {
+    console.log("error", error);
+  }
+}
+
+
+@HostListener('document:click', ['$event'])
+handleMouseClick(event: MouseEvent) {
+  const x = event.clientX;
+  const y = event.clientY;
+  this.blockpx = x;
+  this.blockpy = y;
+  this.AxiosPostBlock();
+}
+
 
 
 

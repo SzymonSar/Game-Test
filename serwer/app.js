@@ -35,7 +35,7 @@ const pool = new Pool({
   }
 });
 
-app.get('/drop-db-3122', async (req, res) => {
+app.get('/drop-users-db-3122', async (req, res) => {
   try {
     await pool.query('DROP TABLE IF EXISTS game_all');
     res.status(200).send('Tabela game_all została usunięta');
@@ -45,7 +45,7 @@ app.get('/drop-db-3122', async (req, res) => {
   }
 });
 
-app.get('/get-db', async (req, res) => {
+app.get('/get-users-db', async (req, res) => {
   try {
     const { owner, anti } = req.query; 
     let result;
@@ -77,7 +77,7 @@ app.get('/get-db', async (req, res) => {
   }
 });
 
-app.post('/add-db', async (req, res) => {
+app.post('/add-users-db', async (req, res) => {
   const { owner, px, py, color }  = req.body;
   if (!owner || !px || !py || !color) {
     return res.status(400).send('Brakuje danych: owner, px, py lub color');
@@ -98,6 +98,58 @@ app.post('/add-db', async (req, res) => {
       );
       res.status(200).send('Nowy wpis dodany');
     }
+  } catch (err) {
+    console.error('Błąd zapytania:', err);
+    res.status(500).send('Błąd połączenia z bazą danych');
+  }
+});
+
+//-----------------------------------------------------------------
+//-----------------------------------------------------------------
+//-----------------------------------------------------------------
+
+app.get('/drop-blocks-db-3122', async (req, res) => {
+  try {
+    await pool.query('DROP TABLE IF EXISTS game_blocks');
+    res.status(200).send('Tabela game_all została usunięta');
+  } catch (err) {
+    console.error('Błąd podczas usuwania tabeli:', err.stack || err);
+    res.status(500).send('Błąd połączenia z bazą danych');
+  }
+});
+
+app.get('/get-blocks-db', async (req, res) => {
+  try {
+    let result = await pool.query('SELECT * from game_blocks');
+    res.send(result.rows);
+  } catch (err) {
+    console.log('Tablica nie istnieje, tworze tablice')
+    try{
+      const result = await pool.query(`CREATE TABLE game_blocks (
+          id SERIAL PRIMARY KEY,
+          px DOUBLE PRECISION NOT NULL,
+          py DOUBLE PRECISION NOT NULL,
+          color TEXT NOT NULL
+         );`)
+      res.status(200).send("Tabela zostala stworzona");
+    }catch(err){
+    console.error('Błąd zapytania:', err);
+    res.status(500).send('Błąd połączenia z bazą danych');
+    }
+  }
+});
+
+app.post('/add-blocks-db', async (req, res) => {
+  const {px, py, color }  = req.body;
+  if (!px || !py || !color) {
+    return res.status(400).send('Brakuje danych: px, py lub color');
+  }
+  try {
+      await pool.query(
+        'INSERT INTO game_blocks (px, py, color) VALUES ($1, $2, $3)',
+        [px, py, color]
+      );
+      res.status(200).send('Nowy wpis dodany');
   } catch (err) {
     console.error('Błąd zapytania:', err);
     res.status(500).send('Błąd połączenia z bazą danych');
