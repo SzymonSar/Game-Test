@@ -17,6 +17,8 @@ export class Main implements OnInit{
   users: any[] = []
   user: string = "";
   username: string = "";
+  userhalfsize = 5;
+  blockhalfsize = 5;
   px: number = 10.0;
   py: number = 10.0;
   color: string = "#00ff00"
@@ -114,20 +116,30 @@ handleKeyUp(event: KeyboardEvent) {
 }
 
 animate() {
-  if (this.pressedKeys.has('w') && this.py > 10) {
-    this.py -= this.step;
+  let newPx = this.px;
+  let newPy = this.py;
+
+  if (this.pressedKeys.has('w')) {
+    newPy -= this.step;
   }
-  if (this.pressedKeys.has('s') && this.py < 500) {
-    this.py += this.step;
+  if (this.pressedKeys.has('s')) {
+    newPy += this.step;
   }
-  if (this.pressedKeys.has('a') && this.px > 10) {
-    this.px -= this.step;
+  if (this.pressedKeys.has('a')) {
+    newPx -= this.step;
   }
-  if (this.pressedKeys.has('d') && this.px < 1000) {
-    this.px += this.step;
+  if (this.pressedKeys.has('d')) {
+    newPx += this.step;
   }
+
+  if (!this.isCollision(newPx, newPy)) {
+    if (newPx >= 10 && newPx <= 1000) this.px = newPx;
+    if (newPy >= 10 && newPy <= 500) this.py = newPy;
+  }
+
   this.animationFrameId = requestAnimationFrame(() => this.animate());
 }
+
 
 AxiosGetBlocks = async () => {
   let client = axios.create({
@@ -171,9 +183,30 @@ AxiosPostBlock = async () => {
 handleMouseClick(event: MouseEvent) {
   const x = event.clientX;
   const y = event.clientY;
-  this.blockpx = x - 5;
-  this.blockpy = y - 5;
+  this.blockpx = x
+  this.blockpy = y
   this.AxiosPostBlock();
+}
+
+
+isCollision(x: number, y: number): boolean {
+  
+  for (const block of this.blocks) {
+    const blockLeft = block.px - this.blockhalfsize;
+    const blockRight = block.px + this.blockhalfsize;
+    const blockTop = block.py - this.blockhalfsize;
+    const blockBottom = block.py + this.blockhalfsize;
+
+    if (
+      x + this.userhalfsize > blockLeft &&
+      x - this.userhalfsize < blockRight &&
+      y + this.userhalfsize > blockTop &&
+      y - this.userhalfsize < blockBottom
+    ) {
+      return true; 
+    }
+  }
+  return false;
 }
 
 
