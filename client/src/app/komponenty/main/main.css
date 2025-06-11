@@ -5,6 +5,12 @@
   border-radius: 50%;
 }
 
+.block{
+  position: absolute;
+  width: 10px;
+  height: 10px;
+}
+
 .ramka {
   position: absolute;
   top: 5;
