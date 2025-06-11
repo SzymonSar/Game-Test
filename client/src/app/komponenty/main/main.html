@@ -19,4 +19,10 @@
     [style.background-color]="item.color">
     >{{ item.owner }} 
     </div>
+    <div *ngFor="let item of blocks"
+    class="block"
+    [style.left.px]="item.px"
+    [style.top.px]="item.py"
+    [style.background-color]="item.color">
+    </div>
 </div>

@@ -83,6 +83,7 @@ async Loop() {
   while(true){
     await this.AxiosGetUsers()
     await this.AxiosPostUser()
+    await this.AxiosGetBlocks()
     await this.delay(10)
   }
  }
