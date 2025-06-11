@@ -157,7 +157,7 @@ AxiosPostBlock = async () => {
   }
   try {
     console.log(dane)
-    const response = await client.post(`/add- blocks-db/`, dane, {
+    const response = await client.post(`/add-blocks-db/`, dane, {
     headers: { 'Content-Type': 'application/json' }
   });
   console.log(response.status)
